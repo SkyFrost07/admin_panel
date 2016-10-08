@@ -6,6 +6,7 @@ return [
     'albums' => 'Album',
     'back' => 'Quay lại',
     'ban' => 'Cấm',
+    'banned' => 'Cấm',
     'count' => 'Tổng bài',
     'created_at' => 'Ngày tạo',
     'updated_at' => 'Ngày cập nhật',

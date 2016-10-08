@@ -297,8 +297,8 @@ $config = array(
         
 	'fixed_image_creation'                    => true, //activate or not the creation of one or more image resized with fixed path from filemanager folder
 	'fixed_path_from_filemanager'             => ['../../uploads/medium/', '../../uploads/large', '../../uploads/slider'], //fixed path of the image folder from the current position on upload folder
-	'fixed_image_creation_name_to_prepend'    => ['', ''], //name to prepend on filename
-	'fixed_image_creation_to_append'          => ['', ''], //name to appendon filename
+	'fixed_image_creation_name_to_prepend'    => ['', '', ''], //name to prepend on filename
+	'fixed_image_creation_to_append'          => ['', '', ''], //name to appendon filename
 	'fixed_image_creation_width'              => [360, 600, 1368], //width of image (you can leave empty if you set height)
 	'fixed_image_creation_height'             => [240, '', 550], //height of image (you can leave empty if you set width)
 	/*

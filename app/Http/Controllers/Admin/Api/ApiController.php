@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Eloquents\PostEloquent;
-use App\Eloquents\PageEloquent;
-use App\Eloquents\CatEloquent;
+use App\Eloquents\PostTypeEloquent;
+use App\Eloquents\TaxEloquent;
 
 class ApiController extends Controller
 {
@@ -17,9 +16,9 @@ class ApiController extends Controller
 
 
     public function __construct(
-            PostEloquent $post, 
-            PageEloquent $page, 
-            CatEloquent $cat,
+            PostTypeEloquent $post, 
+            PostTypeEloquent $page, 
+            TaxEloquent $cat,
             Request $request
             ) {
         $this->post = $post;
@@ -29,17 +28,17 @@ class ApiController extends Controller
     }
     
     public function getPosts(){
-        $posts = $this->post->all($this->request->all());
+        $posts = $this->post->all('post', $this->request->all());
         return response()->json($posts);
     }
     
     public function getPages(){
-        $pages = $this->page->all($this->request->all());
+        $pages = $this->page->all('page', $this->request->all());
         return response()->json($pages);
     }
     
     public function getCats(){
-        $cats = $this->cat->all($this->request->all());
+        $cats = $this->cat->all('cat', $this->request->all());
         return response()->json($cats);
     }
     
