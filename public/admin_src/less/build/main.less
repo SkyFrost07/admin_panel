@@ -1,0 +1,172 @@
+@import "../mixins.less";
+
+html, body{
+    background: #f3f3f3;
+}
+
+a{
+    &:hover, &:active, &:focus{
+        text-decoration: none; outline: none;
+    }
+    .transi(all ease-in-out 0.3s);
+}
+
+#topnav{
+    padding-left: 0; padding-right: 0;
+    background: #fff; .border-radius(0); border: none; color: @main_cl; border-bottom: 1px solid #ddd;
+    a{
+        color: @main_cl; padding-left: 0.9rem; padding-right: 0.9rem;
+        &:hover{color: @hover_cl;}
+    }
+    .dropdown-menu{
+        top: calc(~"100% + 7px"); .border-radius(0);
+        a{
+            color: @main_cl; white-space: nowrap; display: block; padding-top: 0.5rem; padding-bottom: 0.5rem;
+            &:hover{color: @hover_cl;}
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child a{border-bottom: none;}
+    }
+    .navbar-brand{min-width: @sbar_w; border-right: 1px solid #ddd; margin-right: 0;}
+}
+.notify-item{
+    a{position: relative;}
+    .num{
+        width: 20px; height: 20px; .border-radius(50%); background: @high_cl; color: #fff; display: inline-block; padding: 0 7px; font-size: 0.8rem;
+        position: absolute; top: 1px; right: 20px;
+    }
+}
+#sidebar_col{
+    width: @sbar_w; padding: 3px 0 15px 0; z-index: 1000;
+    position: fixed; top: 54px; left: 0; overflow-y: auto; min-height: calc(~"100vh - 54px");
+    background: @menu_bg; color: #fff;
+}
+#menu_bar{
+    ul{list-style: none; padding-left: 0; margin-bottom: 0;}
+    li{
+        a{
+            padding: 5px 10px; color: #fff; display: block;
+            position: relative;
+        }
+        i{min-width: 18px; margin-right: 3px;}
+        b:after{
+            position: absolute; top: 0; right: 10px; height: 100%; padding: 5px 10px;
+            content: "\f105"; font-family: FontAwesome;
+            .transform(rotate(0deg));
+            .transi(all ease-in-out 0.3s);
+        }
+    }
+    li a:hover, li a:focus, li a:active, .active a{
+        background: @menu_hv;
+    }
+    .sub-menu{
+        max-height: 0px; .transi(all ease-in-out 0.3s); overflow: hidden;
+        li a{
+            padding-left: 35px;
+            &:hover{padding-left: 25px;}
+        }
+    }
+    .open{
+        > a{
+            b:after{.transform(rotate(90deg));}
+        }
+        .sub-menu{
+            max-height: 340px; 
+        }
+    }
+}
+#content_col{
+    margin-left: @sbar_w; padding: 70px 10px 0px 10px; 
+}
+.content_box{
+    min-height: calc(~"100vh - 220px");
+} 
+.toggle{
+    #sidebar_col{
+        width: @sbar_wtg;
+    }
+    #menu_bar{
+        li{
+            position: relative;
+            a{}
+            i{}
+            b, span{display: none;}
+        }
+    }
+    #content_col{
+        margin-left: @sbar_wtg;
+    }
+}
+.wrapper{
+    background: #fff; color: @main_cl; padding: 15px; margin-bottom: 20px;
+}
+.table-data{
+    tr{
+        th, td{
+            &:first-child{width: 33px; text-align: center;}
+        }
+    }
+}
+.page-header{font-size: 1.5rem; margin-bottom: 0;}
+.box-title{font-size: 1.1rem;}
+.data_box{
+    .box-title{margin-bottom: 0;}
+    .items{margin-top: 20px;}
+}
+#files_modal{z-index: 30001;}
+.thumb_item{
+    margin: 10px 0; position: relative;
+    .close{
+        position: absolute; top: 5px; right: 5px;
+        background: rgba(255, 255, 255, 9);
+        padding: 5px 7px;
+        opacity: 0.8;
+        border-radius: 50%;
+    }
+}
+
+.items{
+    .item{margin-bottom: 5px;}
+    .title, .title a{
+        font-size: 0.9rem; color: @main_cl;
+        &:hover{
+            color: @hover_cl;
+        }
+    }
+    .title a{display: inline-block; vertical-align: middle;}
+}
+
+.time_group{
+    font-size: 0.8rem;
+    .t_field{display: inline-block;}
+}
+.lang_tabs{
+    list-style: none; padding: 0;
+    li{
+        display: inline-block;
+        a{display: inline-block; padding: 5px 15px;}
+    } 
+    .active a, li a:hover{
+        border-bottom: 2px solid tomato;
+    }
+}
+.cat-check-lists{
+    list-style: none; max-height: 230px; overflow: auto; padding-left: 0;
+    background: #f5f5f5; padding: 10px;
+}
+ul.nav-status{
+    margin: 0 15px 10px 0; list-style: none; padding: 0; display: inline-block;
+    li{display: inline-block;}
+    li a{padding: .25rem .3rem; line-height: 1rem; vertical-align: top;}
+    .active a{
+        color: #ff6600;
+    }
+}
+.btn_actions{display: inline-block;}
+.list_types{
+    .panel-title a{font-size: 1rem;}
+}
+
+footer{
+    padding: 15px 10px; background: #fff;
+}
