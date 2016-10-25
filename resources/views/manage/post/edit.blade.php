@@ -56,19 +56,19 @@
             <div class="time_group">
                 <div class="t_field">
                     <span>{{trans('manage.day')}}</span>
-                    <select name="time[day]">
+                    <select name="time[day]" class="form-control">
                         {!! range_options(1, 31, $item->created_at->format('d')) !!}
                     </select>
                 </div>
                 <div class="t_field">
                     <span>{{trans('manage.month')}}</span>
-                    <select name="time[month]">
+                    <select name="time[month]" class="form-control">
                         {!! range_options(1, 12, $item->created_at->format('m')) !!}
                     </select>
                 </div>
                 <div class="t_field">
                     <span>{{trans('manage.year')}}</span>
-                    <select name="time[year]">
+                    <select name="time[year]" class="form-control">
                         {!! range_options(2010, 2030, $item->created_at->format('Y')) !!}
                     </select>
                 </div>
@@ -87,21 +87,15 @@
         <div class="form-group thumb_box" >
             <label>{{trans('manage.thumbnail')}}</label>
             <div class="thumb_group">
-                <div class="thumb_item">
-                    <a class="img_box">
-                        @if($item->thumb_url)
-                        <img class="img-fluid" src="{{getImageSrc($item->thumb_url)}}" alt="Thumbnail">
-                        @endif
-                    </a>
-                    <input type="hidden" id="file_url" name="thumb_id" value="{{getImageSrc($item->thumb_url)}}">
-                    <div class="btn_box">
-                        @if($item->thumb_url)
-                        <button type="button" class="close btn-remove-file"><i class="fa fa-close"></i></button>
-                        @endif
-                    </div>
-                </div>
+                @if ($item->thumbnail)
+                <p class="file_item">
+                    {!! $item->getThumbnail('full') !!}
+                    <a class="f_close"></a>
+                    <input type="hidden" name="file_ids[]" value="{{$item->thumb_id}}">
+                </p>
+                @endif
             </div>
-            <div><button type="button" class="btn btn-default btn-popup-files" frame-url="/plugins/filemanager/dialog.php?type=1&field_id=file_url&field_img=file_src" data-toggle="modal" data-target="#files_modal">{{trans('manage.add_image')}}</button></div>
+            <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
         </div>
         
         <div class="form-group">
@@ -174,7 +168,7 @@
 
 <script src="/admin_src/js/tinymce_script.js"></script>
 
-@include('files.modal')
+@include('files.manager')
 
 @stop
 

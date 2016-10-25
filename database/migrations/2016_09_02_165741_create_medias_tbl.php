@@ -14,7 +14,7 @@ class CreateMediasTbl extends Migration
     {
         Schema::create('medias', function(Blueprint $table){
             $table->increments('id');
-            $table->string('thumb_url');
+            $table->integer('thumb_id')->unsigned();
             $table->string('thumb_type', 30)->default('image');
             $table->integer('author_id')->unsigned()->nullable();
             $table->integer('slider_id')->unsigned()->nullable();
@@ -25,6 +25,7 @@ class CreateMediasTbl extends Migration
             $table->timestamps();
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('slider_id')->references('id')->on('taxs')->onDelete('set null');
+            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('cascade');
         });
         
         Schema::create('media_desc', function(Blueprint $table){

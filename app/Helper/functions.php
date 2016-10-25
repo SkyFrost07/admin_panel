@@ -12,6 +12,11 @@ function canAccess() {
 
 function show_messes($txt_class = null, $box_class = null) {
     $result = '';
+    if (Session::has('errors')) {
+        $result = '<div class="alert alert-warning alert-dismissible border_box ' . $box_class . '">'
+                . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+                . '<div class="error_mess ' . $txt_class . '">' . trans('error.error_occurred') . '</div></div>';
+    }
     if (Session::has('error_mess')) {
         $result = '<div class="alert alert-warning alert-dismissible border_box ' . $box_class . '">'
                 . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'

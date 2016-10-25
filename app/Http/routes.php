@@ -108,12 +108,16 @@ Route::group(['prefix' => $manage, 'middleware' => 'auth', 'namespace' => 'Admin
 //    Medias
     Route::resource('medias', 'MediaController', rsNames('media'));
     Route::post('/medias/multi-actions', ['as' => 'media.m_action', 'uses' => 'MediaController@multiAction']);
-//    Slider
+//    Slider & slide
     Route::resource('sliders', 'SliderController', rsNames('slider'));
     Route::post('/sliders/multi-actions', ['as' => 'slider.m_action', 'uses' => 'SliderController@multiAction']);
-//    Slide
-    Route::resource('slides', 'SlideController', rsNames('slide'));
-    Route::post('/slides/multi-actions', ['as' => 'slide.m_action', 'uses' => 'SlideController@multiAction']);
+    Route::get('sliders/{slider_id}/index', ['as' => 'slide.index', 'uses' => 'SlideController@index']);
+    Route::get('sliders/{slider_id}/create', ['as' => 'slide.create', 'uses' => 'SlideController@create']);
+    Route::post('sliders/slides/store', ['as' => 'slide.store', 'uses' => 'SlideController@store']);
+    Route::get('sliders/slides/{id}/edit', ['as' => 'slide.edit', 'uses' => 'SlideController@edit']);
+    Route::put('sliders/slides/{id}/update', ['as' => 'slide.update', 'uses' => 'SlideController@update']);
+    Route::delete('sliders/slides/{id}/delete', ['as' => 'slide.destroy', 'uses' => 'SlideController@destroy']);
+    Route::post('sliders/{slider_id}/slides/multi-actions', ['as' => 'slide.m_action', 'uses' => 'SlideController@multiAction']);
 //    Options
     Route::get('/options/{key}/delete', ['as' => 'option.delete', 'uses' => 'OptionController@destroy']);
     Route::post('/options/update-all', ['as' => 'option.update_all', 'uses' => 'OptionController@updateAll']);
@@ -127,7 +131,11 @@ Route::group(['prefix' => $manage, 'middleware' => 'auth', 'namespace' => 'Admin
     Route::controller('/api', 'Api\ApiController');
 });
 
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function (){
+    Route::controller('/', 'ApiController');
+});
 Route::any($manage.'/admin-ajax', ['as' => 'mn.ajax_url', 'uses' => 'Admin\AdminController@ajaxAction']);
+Route::any('/ajax-action', ['as' => 'ajax_action', 'uses' => 'AjaxController@action']);
 
 function rsNames($name) {
     return [

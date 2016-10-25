@@ -41,7 +41,7 @@ class OptionEloquent extends BaseEloquent {
                 ->paginate($opts['per_page']);
     }
     
-    public function updateItem($key, $value, $lang) {
+    public function updateItem($key, $value, $lang=null) {
         $this->validator(['key' => $key, 'value' => $value], $this->rules());
         
         $lang = $lang ? $lang : current_locale();

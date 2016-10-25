@@ -51,20 +51,17 @@
             <label>{{trans('manage.thumbnail')}}</label>
             <div class="thumb_group">
                 <div class="thumb_item">
-                    <a class="img_box">
-                        @if($item->image_url)
-                        <img class="img-fluid" src="{{getImageSrc($item->image_url)}}" alt="Thumbnail">
-                        @endif
-                    </a>
-                    <input type="hidden" id="file_url" name="image_id" value="{{getImageSrc($item->image_url)}}">
-                    <div class="btn_box">
-                        @if($item->image_url)
-                        <button type="button" class="close btn-remove-file"><i class="fa fa-close"></i></button>
-                        @endif
-                    </div>
+                    @if ($item->thumbnail)
+                    <p class="file_item">
+                        {!! $item->getThumbnail('full') !!}
+                        <a class="f_close"></a>
+                        <input type="hidden" name="file_ids[]" value="{{$item->image_id}}">
+                    </p>
+                    @endif
                 </div>
             </div>
-            <div><button type="button" class="btn btn-default btn-popup-files" frame-url="/plugins/filemanager/dialog.php?type=1&field_id=file_url&field_img=file_src" data-toggle="modal" data-target="#files_modal">{{trans('manage.add_image')}}</button></div>
+            {!! error_field('file_ids') !!}
+            <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
         </div>
 
         <div class="form-group">

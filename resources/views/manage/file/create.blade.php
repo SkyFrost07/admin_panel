@@ -14,8 +14,10 @@
         {!! Form::open(['method' => 'post', 'route' => 'file.store', 'files' => true]) !!}
         
         <div class="form-group">
-            <label>{{trans('manage.choose_files')}}</label>
-            {!! Form::file('files[]', ['class' => '', 'multiple']) !!}
+            <button class="btn-choose-files btn btn-default">
+                <i class="fa fa-upload"></i> {{trans('manage.choose_files')}}
+                {!! Form::file('files[]', ['class' => 'file-input-field', 'multiple']) !!}
+            </button>
             {!! error_field('file') !!}
         </div>
         
@@ -23,8 +25,14 @@
         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{trans('manage.create')}}</button>
         
         {!! Form::close() !!}
+
     </div>
 </div>
 
 @stop
 
+@section('foot')
+
+@include('files.manager')
+
+@stop

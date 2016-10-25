@@ -73,21 +73,17 @@
             <label>{{trans('manage.thumbnail')}}</label>
             <div class="thumb_group">
                 <div class="thumb_item">
-                    <a class="img_box">
-                        @if($item->thumb_url)
-                        <img class="img-fluid" src="{{getImageSrc($item->thumb_url)}}" alt="Thumbnail">
-                        @endif
-                    </a>
-                    <input type="hidden" id="file_url" name="thumb_url" value="{{getImageSrc($item->thumb_url)}}">
-                    <div class="btn_box">
-                        @if($item->thumb_url)
-                        <button type="button" class="close btn-remove-file"><i class="fa fa-close"></i></button>
-                        @endif
-                    </div>
+                    @if ($item->thumbnail)
+                    <p class="file_item">
+                        {!! $item->getThumbnail('full') !!}
+                        <a class="f_close"></a>
+                        <input type="hidden" name="file_ids[]" value="{{$item->thumb_id}}">
+                    </p>
+                    @endif
                 </div>
             </div>
-            {!! error_field('thumb_url') !!}
-            <div><button type="button" class="btn btn-default btn-popup-files" frame-url="/plugins/filemanager/dialog.php?type=1&field_id=file_url&field_img=file_src" data-toggle="modal" data-target="#files_modal">{{trans('manage.add_image')}}</button></div>
+            {!! error_field('file_ids') !!}
+            <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
         </div>
         
         <div class="form-group">
@@ -136,9 +132,9 @@
     var filemanager_title = '<?php echo trans('manage.man_files') ?>';
 </script>
 
-<script src="/adminsrc/js/tinymce_script.js"></script>
+<script src="/admin_src/js/tinymce_script.js"></script>
 
-@include('files.modal')
+@include('files.manager')
 
 @stop
 

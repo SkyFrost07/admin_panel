@@ -18,12 +18,12 @@ class MediaEloquent extends BaseEloquent {
             $code = current_locale();
             return [
                 $code . '.name' => 'required',
-                'thumb_url' => 'required'
+                'file_ids' => 'required'
             ];
         }
         return [
             'locale.name' => 'required',
-            'thumb_url' => 'required',
+            'file_ids' => 'required',
             'lang' => 'required'
         ];
     }
@@ -78,8 +78,8 @@ class MediaEloquent extends BaseEloquent {
             $time = $data['time'];
             $data['created_at'] = date('Y-m-d H:i:s', strtotime($time['year'] . '-' . $time['month'] . '-' . $time['day'] . ' ' . date('H:i:s')));
         }
-        if(isset($data['thumb_url'])){
-            $data['thumb_url'] = cutImgPath($data['thumb_url']);
+        if(isset($data['file_ids']) && $data['file_ids']){
+            $data['thumb_id'] = $data['file_ids'][0];
         }
         $data['media_type'] = $type;
         $item = $this->model->create($data);    
@@ -116,8 +116,8 @@ class MediaEloquent extends BaseEloquent {
     public function update($id, $data) {
         $this->validator($data, $this->rules(true));
 
-        if($data['thumb_url']){
-            $data['thumb_url'] = cutImgPath($data['thumb_url']);
+        if(isset($data['file_ids']) && $data['file_ids']){
+            $data['thumb_id'] = $data['file_ids'][0];
         }
         $fillable = $this->model->getFillable();
         $fill_data = array_only($data, $fillable);
@@ -133,7 +133,7 @@ class MediaEloquent extends BaseEloquent {
         
         $lang_data = $data['locale'];
         $name = $lang_data['name'];
-        $slug = $lang_data['slug'];
+        $slug = isset($lang_data['slug']) ? $lang_data['slug'] : '';
         $lang_data['slug'] = (trim($slug) == '') ? str_slug($name) : str_slug($slug);
 
         $item->langs()->sync([$data['lang'] => $lang_data], false);

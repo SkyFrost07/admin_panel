@@ -22,7 +22,6 @@
                 <th>{{trans('manage.name')}} {!! link_order('td.name') !!}</th>
                 <th>{{trans('manage.slug')}}</th>
                 <th>{{trans('manage.man_childs')}}</th>
-                <th>{{trans('manage.count')}} {!! link_order('count') !!}</th>
                 <th></th>
             </tr>
         </thead>
@@ -34,7 +33,6 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->slug}}</td>
                 <td><a href="{{route('slide.index', ['slider_id' => $item->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-long-arrow-right"></i></a></td>
-                <td><a href="{{route('media.index', ['slider_id' => $item->id, 'status' => 1])}}">{{$item->count}}</a></td>
                 <td>
                     <a href="{{route('slider.edit', ['id' => $item->id])}}" class="btn btn-sm btn-info" title="{{trans('manage.edit')}}"><i class="fa fa-edit"></i></a>
                 </td>

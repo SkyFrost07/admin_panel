@@ -22,9 +22,8 @@
                     });
                 }
                 reloadMenus();
-                
+
                 $scope.options = {
-                    
                 };
 
                 $scope.posts = [];
@@ -65,7 +64,7 @@
                 }).success(function (data) {
                     $scope.cats = data;
                 });
-      
+
                 $scope.newMenus = [];
                 $scope.newcustom = {};
                 $scope.addMenu = function (item, type) {
@@ -107,12 +106,12 @@
                         reloadMenus();
                     });
                 };
-                
-                $scope.updateOrder = function(e){
-                    $http.post(order_items_url, {menus: $scope.menus, _token: _token}).success(function(data){
-                        
-                    }).error(function(err){
-                       e.preventDefault(); 
+
+                $scope.updateOrder = function (e) {
+                    $http.post(order_items_url, {menus: $scope.menus, _token: _token}).success(function (data) {
+                        console.log(data);
+                    }).error(function (err) {
+                        e.preventDefault();
                     });
                 };
             })
@@ -125,11 +124,11 @@
                             }).success(function (data) {
                                 var title = data.name || data.title;
                                 element.html(title);
-                                var mi_inner = element.closest('.mi-inner'); 
-                                var elTitle = mi_inner.find('.item-title'); 
+                                var mi_inner = element.closest('.mi-inner');
+                                var elTitle = mi_inner.find('.item-title');
                                 var elHandle = mi_inner.find('.handle');
-                                
-                                if(elTitle.val() == ''){
+
+                                if (elTitle.val() == '') {
                                     elTitle.val(title);
                                     elHandle.html(title);
                                 }

@@ -20,6 +20,7 @@ return [
     'actions' => 'Hành động',
     'fails_database' => 'Lỗi tương tác với cơ sở dữ liệu',
     'group' => 'Nhóm',
+    'has_selected' => 'được chọn',
     'list_menus' => 'Danh sách menu',
     'man_caps' => 'Quản lý quyền hạn',
     'man_langs' => 'Quản lý ngôn ngữ',

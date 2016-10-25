@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Media extends Model {
 
     protected $table = 'medias';
-    protected $fillable = ['thumb_url', 'thumb_type', 'author_id', 'slider_id', 'status', 'target', 'views', 'media_type'];
+    protected $fillable = ['thumb_id', 'thumb_type', 'author_id', 'slider_id', 'status', 'target', 'views', 'media_type'];
 
     public function joinLang($lang = null) {
         $locale = ($lang) ? $lang : current_locale();
@@ -48,10 +48,21 @@ class Media extends Model {
         }
         return trans('manage.disable');
     }
-
-    public function getImage($size = 'thumbnail', $class = 'null') {
-        if ($this->thumb_type == 'image') {
-            return '<img class="img-fluid ' . $class . '" src="' . getImageSrc($this->thumb_url, $size) . '">';
+    
+    public function thumbnail(){
+        return $this->belongsTo('\App\Models\File', 'thumb_id', 'id');
+    }
+    
+    public function getThumbnailSrc($size='thumbnail') {
+        if ($this->thumbnail) {
+            return $this->thumbnail->getSrc($size);
+        }
+        return null;
+    }
+    
+    public function getThumbnail($size = 'thumbnail', $class = 'null') {
+        if ($this->thumb_type == 'image' && $this->thumbnail) {
+            return $this->thumbnail->getImage($size, $class);
         }
         return null;
     }

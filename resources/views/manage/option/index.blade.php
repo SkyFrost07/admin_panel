@@ -2,6 +2,12 @@
 
 @section('title', trans('manage.man_options'))
 
+@section('head')
+<style>
+    .create-btn{display: none;}
+</style>
+@stop
+
 @section('page_title', trans('manage.man_options'))
 
 @section('table_nav')
@@ -26,21 +32,17 @@
 
         <div class="form-group">
             <label>{{trans('manage.value')}} (*)</label>
-            <div class="thumb_group">
-                <div class="thumb_item">
-                    <a class="img_box"></a>
-                    <div class="btn_box"></div>
-                    <textarea name="value" id="file_url" rows="2" class="form-control" placeholder="{{trans('manage.value')}}"></textarea>
-                </div>
-            </div>
-            <div><button type="button" class="btn btn-default btn-sm btn-popup-files" frame-url="/plugins/filemanager/dialog.php?type=1&field_id=file_url" data-toggle="modal" data-target="#files_modal">{{trans('manage.add_image')}}</button></div>
+            <textarea name="value" id="file_url" rows="2" class="form-control" placeholder="{{trans('manage.value')}}"></textarea>
             {!! error_field('value') !!}
+            <br />
+            <div class="thumb_group">
+            </div>
+            <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
         </div>
 
         <div class="form-group">
             <label>{{trans('manage.language')}}</label>
             <select name="lang_code" class="form-control">
-                <option value="">{{trans('manage.all')}}</option>
                 @foreach(get_langs(['fields' => ['code']]) as $lang)
                 <option value="{{$lang->code}}">{{$lang->code}}</option>
                 @endforeach
@@ -74,10 +76,14 @@
                     <tr>
                         <td><input type="checkbox" name="check_items[]" class="check_item" value="{{ $item->option_key }}" /></td>
                         <td>{{ $item->option_key }}</td>
-                        <td><textarea name="{{$item->lang_code.'['.$item->option_key.']'}}" rows="1" class="form-control">{{ $item->value }}</textarea></td>
+                        <td>
+                            <span class="value">{{$item->value}}</span>
+                            <input name="{{$item->lang_code.'['.$item->option_key.']'}}" class="form-control hidden-xs-up" value="{{ $item->value }}">
+                        </td>
                         <td>{{ $item->lang_code }}</td>
                         <td>
-                            <a href="{{route('option.delete', ['key' => $item->option_key])}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{{route('option.delete', ['key' => $item->option_key])}}" class="btn btn-sm btn-danger" data-toggle="tooltip" title="{{trans('manage.destroy')}}"><i class="fa fa-trash"></i></a>
+                            <!--<a href="{{'route'}}" class="btn btn-sm btn-info" data-toggle="tooltip" title="{{trans('manage.save')}}"><i class="fa fa-save"></i></a>-->
                         </td>
                     </tr>
                     @endforeach
@@ -108,7 +114,7 @@
 
 <script src="/admin_src/js/tinymce_script.js"></script>
 
-@include('files.modal')
+@include('files.manager')
 
 @stop
 

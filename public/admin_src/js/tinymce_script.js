@@ -5,11 +5,13 @@
             plugins: [
                 "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager"
+                "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager ex_loadfile"
             ],
             image_advtab: true,
             relative_urls: false,
-            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor | responsivefilemanager",
+            toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor | responsivefilemanager | ex_loadfile",
+            ex_file_title: "Danh sách tệp tin",
+            ex_filepath: file_dialog_url,
             external_filemanager_path: "/plugins/filemanager/",
             filemanager_title: filemanager_title,
             external_plugins: {"filemanager": "/plugins/filemanager/plugin.min.js"}
@@ -26,7 +28,7 @@
         $(this).closest('.thumb_item').find('input, textarea').val('');
         $(this).remove();
     });
-    
+
 })(jQuery);
 
 function responsive_filemanager_callback(field_id){

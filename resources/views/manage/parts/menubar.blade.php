@@ -7,7 +7,7 @@ function nested_admenus($items, $depth = 0) {
             $route_params = (isset($item['route_params'])) ? $item['route_params'] : [];
             $has_childs = (isset($item['childs']) && $item['childs']);
             $html .= '<li class="' . isSubActive($item['route']) . ' '.($has_childs ? 'has-sub' : '').'">';
-            $html .= '<a href="' . route($item['route'], $route_params) . '"><i class="fa ' . (isset($item['icon']) ? $item['icon'] : 'fa-circle') . '"></i> <span>' . $item['name'] . '</span> ' . ($has_childs ? '<b></b>' : '') . '</a>';
+            $html .= '<a href="' . route($item['route'], $route_params) . '" title="'.$item['name'].'"><i class="fa ' . (isset($item['icon']) ? $item['icon'] : 'fa-circle') . '"></i> <span>' . $item['name'] . '</span> ' . ($has_childs ? '<b></b>' : '') . '</a>';
             if ($has_childs) {
                 $html .= nested_admenus($item['childs'], $depth + 1);
             }

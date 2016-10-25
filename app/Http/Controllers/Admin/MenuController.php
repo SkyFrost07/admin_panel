@@ -3,35 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Eloquents\MenuEloquent;
-use App\Eloquents\MenuCatEloquent;
-use App\Eloquents\CatEloquent;
-use App\Eloquents\TagEloquent;
-use App\Eloquents\PostEloquent;
-use App\Eloquents\PageEloquent;
+use App\Eloquents\TaxEloquent;
+use App\Eloquents\PostTypeEloquent;
 
 class MenuController extends Controller {
 
     protected $menu;
-    protected $menucat;
-    protected $cat;
-    protected $tag;
+    protected $tax;
     protected $post;
-    protected $page;
 
-    public function __construct(MenuEloquent $menu, MenuCatEloquent $menucat, CatEloquent $cat, TagEloquent $tag, PostEloquent $post, PageEloquent $page) {
+    public function __construct(MenuEloquent $menu, TaxEloquent $tax, PostTypeEloquent $post) {
         canAccess('manage_menus');
 
         $this->menu = $menu;
-        $this->menucat = $menucat;
-
-        $this->cat = $cat;
-        $this->tag = $tag;
+        $this->tax = $tax;
         $this->post = $post;
-        $this->page = $page;
     }
 
     public function index(Request $request) {
@@ -42,20 +31,13 @@ class MenuController extends Controller {
 
     public function create() {
         $parents = $this->menu->all(['orderby' => 'pivot_title']);
-        $groups = $this->menucat->all(['orderby' => 'pivot_name', 'fields' => ['id']]);
+        $groups = $this->tax->all('menucat', ['orderby' => 'pivot_name', 'fields' => ['id']]);
 
-        $cats = $this->cat->all(['orderby' => 'pivot_name', 'fields' => ['id']]);
-        $tags = $this->tag->all(['orderby' => 'pivot_name', 'fields' => ['id']]);
-        $posts = $this->post->all(['orderby' => 'pivot_title', 'fields' => ['id']]);
-        $pages = $this->page->all(['orderby' => 'pivot_title', 'fields' => ['id']]);
-        return view('manage.menu.create', [
-            'parents' => $parents,
-            'groups' => $groups,
-            'cats' => $cats,
-            'tags' => $tags,
-            'posts' => $posts,
-            'pages' => $pages
-        ]);
+        $cats = $this->tax->all('cat', ['orderby' => 'pivot_name', 'fields' => ['id']]);
+        $tags = $this->tax->all('tag', ['orderby' => 'pivot_name', 'fields' => ['id']]);
+        $posts = $this->post->all('post', ['orderby' => 'pivot_title', 'fields' => ['id']]);
+        $pages = $this->post->all('page', ['orderby' => 'pivot_title', 'fields' => ['id']]);
+        return view('manage.menu.create', compact('parents', 'groups', 'cats', 'tags', 'posts', 'pages'));
     }
 
     public function store(Request $request) {
@@ -128,13 +110,13 @@ class MenuController extends Controller {
                 $result = $this->post->findByLang($menu->type_id, ['posts.id', 'pd.title'], $lang);
                 break;
             case 2:
-                $result = $this->page->findByLang($menu->type_id, ['posts.id', 'pd.title'], $lang);
+                $result = $this->post->findByLang($menu->type_id, ['posts.id', 'pd.title'], $lang);
                 break;
             case 3:
-                $result = $this->cat->findByLang($menu->type_id, ['taxs.id', 'td.name'], $lang);
+                $result = $this->tax->findByLang($menu->type_id, ['taxs.id', 'td.name'], $lang);
                 break;
             case 4:
-                $result = $this->tag->findByLang($menu->type_id, ['taxs.id', 'td.name'], $lang);
+                $result = $this->tax->findByLang($menu->type_id, ['taxs.id', 'td.name'], $lang);
                 break;
         }
 

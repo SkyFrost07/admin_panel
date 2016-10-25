@@ -51,20 +51,18 @@
         <div class="form-group row">
             <label class="col-sm-4">{{trans('auth.avatar')}}</label>
             <div class="col-sm-8">
-                <div class="thumb_item">
-                    <a class="img_box avatar_img">
-                        @if($user->image_url)
-                        <img class="img-fluid" src="{{getImageSrc($user->image_url, 'thumbnail')}}" alt="avatar">
-                        @endif
-                    </a>
-                    <input type="hidden" id="file_url" name="image_id" value="{{getImageSrc($user->image_url)}}">
-                    <div class="btn_box">
-                        @if($user->image_url)
-                        <button type="button" class="close btn-remove-file"><i class="fa fa-close"></i></button>
+                <div class="thumb_group">
+                    <div class="thumb_item">
+                        @if ($user->avatar)
+                        <p class="file_item">
+                            {!! $user->getAvatar('thumbnail') !!}
+                            <a class="f_close"></a>
+                            <input type="hidden" name="file_ids[]" value="{{$user->image_id}}">
+                        </p>
                         @endif
                     </div>
                 </div>
-                <button type="button" class="btn btn-default btn-popup-files" frame-url="/plugins/filemanager/dialog.php?type=1&field_id=file_url&field_img=file_src" data-toggle="modal" data-target="#files_modal">{{trans('manage.add_image')}}</button>
+                <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
             </div>
         </div>
 
@@ -116,7 +114,7 @@
 
 <script src="/admin_src/js/tinymce_script.js"></script>
 
-@include('files.modal')
+@include('files.manager')
 
 @stop
 

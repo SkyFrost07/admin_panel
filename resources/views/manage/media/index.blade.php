@@ -39,7 +39,7 @@
             <tr>
                 <td><input type="checkbox" name="check_items[]" class="check_item" value="{{ $item->id }}" /></td>
                 <td>{{$item->id}}</td>
-                <td><img width="50" src="{{getImageSrc($item->thumb_url, 'thumbnail')}}"></td>
+                <td><img width="50" src="{{$item->getThumbnailSrc()}}" alt="No thumbnail"></td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->slug}}</td>
                 <td>{{$item->author ? $item->author->name : 'N/A'}}</td>

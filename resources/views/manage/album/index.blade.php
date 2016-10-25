@@ -31,7 +31,7 @@
             <tr>
                 <td><input type="checkbox" name="check_items[]" class="check_item" value="{{ $item->id }}" /></td>
                 <td>{{$item->id}}</td>
-                <td><img width="50" src="{{ getImageSrc($item->image_url, 'thumbnail') }}" alt="Thumbnail"></td>
+                <td><img width="50" src="{{ $item->getThumbnailSrc('thumbnail') }}" alt="Thumbnail"></td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->slug}}</td>
                 <td><a href="{{route('media.index', ['albums' => [$item->id], 'status' => 1])}}">{{$item->count}}</a></td>

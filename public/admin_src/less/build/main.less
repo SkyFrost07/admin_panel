@@ -1,8 +1,22 @@
 @import "../mixins.less";
 
 html, body{
-    background: #f3f3f3;
+    background: #f3f3f3; font-size: 0.93rem;
 }
+
+.loading{
+    display: none; z-index: 100000;
+    background: rgba(255, 255, 255, 0.8); padding: 5px; .border-radius(5px); border: 1px solid #ddd;
+    position: fixed; top: 50%; left: 50%; .transform(translate(-50%, -50%));
+    span{
+        display: inline-block; width: 32px; height: 32px; float: left;
+        background: url('../../images/loading.gif') no-repeat;
+        background-size: 100% 100%; 
+    }
+}
+.loading.show{display: block;}
+.loading.show-inline{display: inline-block;}
+.nav-status.hidden{display: none;}
 
 a{
     &:hover, &:active, &:focus{
@@ -19,7 +33,7 @@ a{
         &:hover{color: @hover_cl;}
     }
     .dropdown-menu{
-        top: calc(~"100% + 7px"); .border-radius(0);
+        top: calc(~"100% + 9px"); .border-radius(0); right: 3px;
         a{
             color: @main_cl; white-space: nowrap; display: block; padding-top: 0.5rem; padding-bottom: 0.5rem;
             &:hover{color: @hover_cl;}
@@ -38,7 +52,7 @@ a{
 }
 #sidebar_col{
     width: @sbar_w; padding: 3px 0 15px 0; z-index: 1000;
-    position: fixed; top: 54px; left: 0; overflow-y: auto; min-height: calc(~"100vh - 54px");
+    position: fixed; top: 50px; left: 0; overflow-y: auto; min-height: calc(~"100vh - 54px");
     background: @menu_bg; color: #fff;
 }
 #menu_bar{
@@ -46,7 +60,7 @@ a{
     li{
         a{
             padding: 5px 10px; color: #fff; display: block;
-            position: relative;
+            position: relative; font-size: 1rem;
         }
         i{min-width: 18px; margin-right: 3px;}
         b:after{

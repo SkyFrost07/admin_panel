@@ -15,6 +15,24 @@ return array(
     |
     */
 
-    'driver' => 'gd'
+    'driver' => 'gd',
+    'upload_dir' => 'uploads/',
+    'image_sizes' => [
+        'thumbnail' => [
+            'width' => 80,
+            'height' => 80,
+            'crop' => true
+        ],
+        'medium' => [
+            'width' => 360,
+            'height' => 240,
+            'crop' => true
+        ],
+        'large' => [
+            'width' => 1368,
+            'height' => null,
+            'crop' => false
+        ]
+    ]
 
 );

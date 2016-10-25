@@ -8,7 +8,7 @@ class PostType extends Model
 {
     protected $table = 'posts';
     public $dates = ['trashed_at'];
-    protected $fillable = ['thumb_url', 'thumb_urls', 'author_id', 'status', 'comment_status', 'comment_count', 'post_type', 'views', 'template', 'trased_at', 'created_at', 'updated_at'];
+    protected $fillable = ['thumb_id', 'thumb_ids', 'author_id', 'status', 'comment_status', 'comment_count', 'post_type', 'views', 'template', 'trased_at', 'created_at', 'updated_at'];
 
     public function joinLang($lang = null) {
         $locale = ($lang) ? $lang : current_locale();
@@ -66,8 +66,15 @@ class PostType extends Model
                         ->where('post_type', 'post');
     }
 
-    public function getImage($size = 'thumbnail', $class='') {
-        return '<img class="img-fluid '.$class.'" src="'.getImageSrc($this->thumb_id, $size).'">';
+    public function thumbnail() {
+        return $this->belongsTo('\App\Models\File', 'thumb_id', 'id');
+    }
+    
+    public function getThumbnail($size = 'thumbnail', $class='') {
+        if ($this->thumbnail) {
+            return $this->thumbnail->getImage($size, $class);
+        }
+        return null;
     }
 
     public function str_status() {

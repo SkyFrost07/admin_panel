@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'email', 'password', 'birth', 'gender', 'status', 'image_url', 'role_id'
+        'name', 'slug', 'email', 'password', 'birth', 'gender', 'status', 'image_id', 'role_id'
     ];
 
     /**
@@ -33,6 +33,24 @@ class User extends Authenticatable
     
     public function caps(){
         return $this->role->caps;
+    }
+    
+    public function avatar() {
+        return $this->belongsTo('\App\Models\File', 'image_id', 'id');
+    }
+    
+    public function getAvatarSrc($size = 'thumbnail') {
+        if ($this->avatar) {
+            return $this->avatar->getSrc($size);
+        }
+        return null;
+    } 
+    
+    public function getAvatar($size='thumbnail', $class='') {
+        if ($this->avatar) {
+            return $this->avatar->getImage($size, $class);
+        }
+        return null;
     }
     
     public function status(){

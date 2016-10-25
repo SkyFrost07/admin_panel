@@ -94,8 +94,11 @@ class PostTypeEloquent extends BaseEloquent {
             $time = $data['time'];
             $data['created_at'] = date('Y-m-d H:i:s', strtotime($time['year'] . '-' . $time['month'] . '-' . $time['day'] . ' ' . date('H:i:s')));
         }
-        if (isset($data['thumb_id'])) {
-            $data['thumb_url'] = cutImgPath($data['thumb_id']);
+        if (isset($data['file_ids']) && $data['file_ids']) {
+            $data['thumb_id'] = $data['file_ids'][0];
+        }
+        if (isset($data['gallery_ids']) && $data['gallery_ids']) {
+            $data['thumb_ids'] = json_encode($data['gallery_ids']);
         }
         $data['post_type'] = $type;
         $item = $this->model->create($data);
@@ -150,8 +153,11 @@ class PostTypeEloquent extends BaseEloquent {
     public function update($id, $data) {
         $this->validator($data, $this->rules(true));
 
-        if ($data['thumb_id']) {
-            $data['thumb_url'] = cutImgPath($data['thumb_id']);
+        if (isset($data['file_ids']) && $data['file_ids']) {
+            $data['thumb_id'] = $data['file_ids'][0];
+        }
+        if (isset($data['gallery_ids']) && $data['gallery_ids']) {
+            $data['thumb_ids'] = json_encode($data['gallery_ids']);
         }
         if (isset($data['time'])) {
             $time = $data['time'];

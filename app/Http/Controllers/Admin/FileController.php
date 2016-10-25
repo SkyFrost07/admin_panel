@@ -30,8 +30,11 @@ class FileController extends Controller {
         return view('manage.file.index', ['items' => $files]);
     }
     
-    public function dialog(){
-        return view('files.dialog');
+    public function dialog(Request $request){
+        canAccess('read_files');
+        
+        $params = $request->all();
+        return view('files.dialog', compact('params'));
     }
     
     public function manage(){
@@ -56,6 +59,9 @@ class FileController extends Controller {
         canAccess('publish_files');
         
         if (!$request->hasFile('files')) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([], 422);
+            }
             return redirect()->back()->withInput()->withErrors(['file' => trans('validation.required', ['attribute' => 'file'])]);
         }
 
@@ -65,15 +71,20 @@ class FileController extends Controller {
         foreach ($files as $file) {
             try {
                 $newfile = $this->file->insert($file);
+                $newfile->thumb_url = $newfile->getSrc('thumbnail');
+                $newfile->full_url = $newfile->getSrc('full');
                 array_push($results, $newfile);
             } catch (ValidationException $ex) {
+                if ($request->wantsJson() || $request->ajax()) {
+                    return response()->json($ex->validator, 422);
+                }
                 return redirect()->back()->withInput()->withErrors($ex->validator);
             }
         }
         if($request->wantsJson() || $request->ajax()){
             return response()->json($results);
         }
-        return redirect()->back()->with('succ_mess', trans('manage.store_success'));
+        return redirect()->route('file.index')->with('succ_mess', trans('manage.store_success'));
     }
 
     public function edit($id) {

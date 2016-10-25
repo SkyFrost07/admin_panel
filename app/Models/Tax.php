@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tax extends Model
 {
     protected $table = 'taxs';
-    protected $fillable = ['image_url', 'type', 'parent_id', 'order', 'count', 'status'];
+    protected $fillable = ['image_id', 'type', 'parent_id', 'order', 'count', 'status'];
 
     public function joinLang($lang=null) {
         $lang = ($lang) ? $lang : current_locale();
@@ -39,8 +39,22 @@ class Tax extends Model
         return $this->belongsToMany('\App\Models\Lang', 'tax_desc', 'tax_id', 'lang_code');
     }
     
-    public function getImage($size='thumbnail', $class = null){
-        return '<img class="img-responsive '.$class.'" src="'.getImageSrc($this->image_id, $size).'">';
+    public function thumbnail() {
+        return $this->belongsTo('\App\Models\File', 'image_id', 'id');
+    }
+    
+    public function getThumbnailSrc($size) {
+        if ($this->thumbnail) {
+            return $this->thumbnail->getSrc($size);
+        }
+        return null;
+    }
+    
+    public function getThumbnail($size='thumbnail', $class = null){
+        if ($this->thumbnail) {
+            return $this->thumbnail->getImage($size, $class);
+        }
+        return null;
     }
     
     public function status() {

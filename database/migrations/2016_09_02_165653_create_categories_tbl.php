@@ -14,16 +14,16 @@ class CreateCategoriesTbl extends Migration
     {
         Schema::create('taxs', function(Blueprint $table){
            $table->increments('id');
-           $table->string('image_url');
+           $table->integer('image_id')->unsigned()->nullable()->after('id');
            $table->string('type', 30)->default('cat');
            $table->integer('parent_id')->unsigned()->nullable();
-//           $table->json('parent_ids');
            $table->string('parent_ids');
            $table->integer('order');
            $table->integer('count');
            $table->integer('status')->default(1);
            $table->timestamps();
            $table->foreign('parent_id')->references('id')->on('taxs')->onDelete('set null');
+           $table->foreign('image_id')->references('id')->on('files')->onDelete('set null');
         });
         
         Schema::create('tax_desc', function(Blueprint $table){

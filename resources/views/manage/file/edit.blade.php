@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <label>{{trans('manage.name')}}</label>
-            {!! Form::text('name', $item->name, ['class' => 'form-control', 'placeholder' => trans('manage.name')]) !!}
+            {!! Form::text('title', $item->title, ['class' => 'form-control', 'placeholder' => trans('manage.name')]) !!}
             {!! error_field('name') !!}
         </div>
 

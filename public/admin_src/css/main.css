@@ -26,6 +26,42 @@
 html,
 body {
   background: #f3f3f3;
+  font-size: 0.93rem;
+}
+.loading {
+  display: none;
+  z-index: 100000;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  border: 1px solid #ddd;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+.loading span {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  float: left;
+  background: url('../../images/loading.gif') no-repeat;
+  background-size: 100% 100%;
+}
+.loading.show {
+  display: block;
+}
+.loading.show-inline {
+  display: inline-block;
+}
+.nav-status.hidden {
+  display: none;
 }
 a {
   transition: all ease-in-out 0.3s;
@@ -60,11 +96,12 @@ a:focus {
   color: #1bbae1;
 }
 #topnav .dropdown-menu {
-  top: calc(100% + 7px);
+  top: calc(100% + 9px);
   border-radius: 0;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   -o-border-radius: 0;
+  right: 3px;
 }
 #topnav .dropdown-menu a {
   color: #65777a;
@@ -109,7 +146,7 @@ a:focus {
   padding: 3px 0 15px 0;
   z-index: 1000;
   position: fixed;
-  top: 54px;
+  top: 50px;
   left: 0;
   overflow-y: auto;
   min-height: calc(100vh - 54px);
@@ -126,6 +163,7 @@ a:focus {
   color: #fff;
   display: block;
   position: relative;
+  font-size: 1rem;
 }
 #menu_bar li i {
   min-width: 18px;

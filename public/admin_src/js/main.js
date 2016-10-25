@@ -1,4 +1,8 @@
 (function ($) {
+    
+    if ($('.nav-status').length > 0 && $('.nav-status').html().trim() == "") {
+        $('.nav-status').addClass('hidden');
+    }
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#menu_toggle').click(function () {
@@ -73,7 +77,7 @@
                 ids.push($(this).val());
             }
         });
-       
+        
        var cf = confirm(title+' ?');
        if(cf){
            $.ajax({
@@ -95,7 +99,12 @@
            });
        }
     });
-
+    
+    $('.value').click(function (){
+       $(this).addClass('hidden-xs-up');
+       $(this).next('input').removeClass('hidden-xs-up');
+    });
+    
 })(jQuery);
 
 

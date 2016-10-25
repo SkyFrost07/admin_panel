@@ -20,14 +20,15 @@ class SlideController extends Controller
         $this->slider = $slider;
     }
 
-    public function index(Request $request) {
-        $items = $this->slide->all($request->all());
-        $slider_id = $request->has('slider_id') ? $request->get('slider_id') : null;
-        return view('manage.slide.index', compact('items', 'slider_id'));
+    public function index($slider_id, Request $request) {
+        $data = $request->all();
+        $data['slider_id'] = $slider_id;
+        $slider = $this->slider->findByLang($slider_id);
+        $items = $this->slide->all($data);
+        return view('manage.slide.index', compact('items', 'slider_id', 'slider'));
     }
 
-    public function create(Request $request) {
-        $slider_id = $request->has('slider_id') ? $request->get('slider_id') : null;
+    public function create($slider_id) {
         return view('manage.slide.create', compact('slider_id'));
     }
 
@@ -49,11 +50,10 @@ class SlideController extends Controller
             $lang = $request->get('lang');
         }
         $item = $this->slide->findByLang($id, ['medias.*', 'md.*'], $lang);
-        $slider_id = $request->has('slider_id') ? $request->get('slider_id') : null;
-        return view('manage.slide.edit', compact('item', 'slider_id'));
+        return view('manage.slide.edit', compact('item', 'lang'));
     }
 
-    public function update($id, Request $request) { dd($request->all());
+    public function update($id, Request $request) {
         try {
             $this->slide->update($id, $request->all());
             return redirect()->back()->with('succ_mess', trans('manage.update_success'));

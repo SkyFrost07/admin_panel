@@ -60,8 +60,8 @@ class TaxEloquent extends BaseEloquent {
             $data['parent_id'] = null;
         }
         $data['type'] = $type;
-        if(isset($data['image_id'])){
-            $data['image_url'] = cutImgPath($data['image_id']);
+        if(isset($data['file_ids']) && $data['file_ids']){
+            $data['image_id'] = $data['file_ids'][0];
         }
         $fillable = $this->model->getFillable();
         $fill_data = array_only($data, $fillable);
@@ -90,8 +90,8 @@ class TaxEloquent extends BaseEloquent {
     public function update($id, $data) {
         $this->validator($data, $this->rules(true));
 
-        if(isset($data['image_id'])){
-            $data['image_url'] = cutImgPath($data['image_id']);
+        if(isset($data['file_ids']) && $data['file_ids']){
+            $data['image_id'] = $data['file_ids'][0];
         }
         if(isset($data['parent_id']) && $data['parent_id'] == 0){
             $data['parent_id'] = null;

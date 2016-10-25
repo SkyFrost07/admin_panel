@@ -82,7 +82,7 @@ class CatController extends Controller {
         return redirect()->back()->with('succ_mess', trans('manage.destroy_success'));
     }
 
-    public function multiAction(Request $request) {
+    public function multiAction(Request $request) { dd($request->all());
         return response()->json($this->cat->actions($request));
     }
 

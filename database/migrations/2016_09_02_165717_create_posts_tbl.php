@@ -14,9 +14,8 @@ class CreatePostsTbl extends Migration
     {
         Schema::create('posts', function(Blueprint $table){
             $table->increments('id');
-            $table->string('thumb_url');
-//            $table->json('thumb_urls');
-            $table->string('thumb_urls');
+            $table->integer('thumb_id')->unsigned()->nullable();
+            $table->string('thumb_urls')->nullable();
             $table->integer('author_id')->unsigned()->nullable();
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('comment_status')->default(1);
@@ -28,6 +27,7 @@ class CreatePostsTbl extends Migration
             $table->timestamps();
             $table->timestamp('trashed_at');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('set null');
         });
         
         Schema::create('post_desc', function(Blueprint $table){

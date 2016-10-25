@@ -1,16 +1,33 @@
 @extends('layouts.manage')
 
 @section('title', trans('manage.man_slides'))
-
-@section('page_title', trans('manage.man_slides'))
-
-@section('table_nav')
-@include('manage.parts.table_nav', ['action_btns' => ['remove'], 'one_status' => true])
-@stop
+<?php
+$page_title = ($slider) ? $slider->name. ' / '. trans('manage.man_slides') : trans('manage.man_slides');
+?>
+@section('page_title', $page_title)
 
 @section('content')
 
 {!! show_messes() !!}
+
+<div class="table_nav">
+    <div class="pull-left">
+        
+        <div class="btn_actions">
+            <a href="{{route('slide.create', ['slider_id' => $slider_id])}}" class="create-btn btn btn-sm btn-success m-b-1" data-toggle="tooltip" title="{{trans('manage.create')}}" data-placement="top">
+                <i class="fa fa-plus"></i> <span class="">{{trans('manage.create')}}</span>
+            </a>
+
+            <a href="{{route('slide.m_action', ['slider_id' => $slider_id])}}" action="remove" class="m_action_btn remove-btn btn btn-sm btn-danger m-b-1" data-toggle="tooltip" title="{{trans('manage.remove')}}" data-placement="top">
+                <i class="fa fa-close"></i> <span class="">{{trans('manage.remove')}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="pull-right m-b-1">
+        @include('manage.parts.table_search_form')
+    </div>
+    <div class="clearfix"></div>
+</div>
 
 @if(!$items->isEmpty()) 
 <div class="table-responsive">
@@ -30,8 +47,8 @@
             <tr>
                 <td><input type="checkbox" name="checked[]" class="check_item" value="{{ $item->id }}" /></td>
                 <td>{{$item->id}}</td>
-                <td><img width="50" src="{{getImageSrc($item->thumb_url, 'thumbnail')}}"></td>
-                <td>{{$item->thumb_url}}</td>
+                <td><img width="50" src="{{$item->getThumbnailSrc('thumbnail')}}"></td>
+                <td>{{$item->name}}</td>
                 <td>{{$item->created_at}}</td>
                 <td>
                     <a href="{{route('slide.edit', ['id' => $item->id, 'slider_id' => $slider_id])}}" class="btn btn-sm btn-info" title="{{trans('manage.edit')}}"><i class="fa fa-edit"></i></a>

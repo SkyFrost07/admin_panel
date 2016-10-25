@@ -14,6 +14,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="/admin_src/css/nested_menu.css">
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/filemanager.css">
         <link rel="stylesheet" href="/admin_src/css/main.css">
         <link rel="stylesheet" href="/admin_src/css/screen.css">
 
@@ -39,12 +40,12 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="bsmenu">
                     <ul class="nav navbar-nav pull-md-right">
-                        <li class="nav-item dropdown notify-item">
+<!--                        <li class="nav-item dropdown notify-item">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span class="num">7</span></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="fa fa-map-marker"></i> Some notify</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li class="nav-item dropdown account-item">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-user"></i> {{auth()->user()->name}}</a>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -82,6 +83,12 @@ and open the template in the editor.
 
         </section>
 
+        <div class="loading"><span></span></div>
+        
+        <script>
+            var loading = $('.loading');
+            var file_dialog_url = "{{route('file.dialog', ['multiple' => 1])}}";
+        </script>
         <script src="/js/tether.min.js"></script>
         <script src="/admin_src/js/select2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
