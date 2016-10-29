@@ -72,7 +72,7 @@
             }
         });
         $('.item-role').change(function () {
-            if ($('.item-role:checked').size() === $('.item-role').size()) {
+            if ($('.item-role:checked').length === $('.item-role').length) {
                 $('.item-all').prop('checked', true);
             } else {
                 $('.item-all').prop('checked', false);

@@ -53,17 +53,24 @@ and open the template in the editor.
             <button type="button" class="btn btn-default btn-close-dialog"><i class="fa fa-close"></i> {{trans('file.close')}}</button>
             <button type="button" class="btn btn-primary btn-editor-submit-files"><i class="fa fa-check"></i> {{trans('file.submit_selected')}}</button>
         </div>
+        
+        <script src="/js/tether.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
 
         <script>
             
             var _token = "{{csrf_token()}}";
-            var multi_select = true;
+            var multi_select = 0;
             var file_type = '_all';
+            var el_preview = '.thumb_group';
             @if(isset($params['multiple']))
                 multi_select = "{{$params['multiple']}}";
             @endif
             @if(isset($params['file_type']))
                 file_type = "{{$params['file_type']}}";
+            @endif
+            @if(isset($params['el_preview']))
+                el_preview = "{{$params['el_preview']}}";
             @endif
         
             var _all_files_url = "{{route('ajax_action')}}";
@@ -128,7 +135,7 @@ and open the template in the editor.
                     var file_id = $(this).data('id');
                     var file_url = $(this).attr('href');
                     var file = {id: file_id, url: file_url};
-                    if (multi_select) {
+                    if (multi_select == 1) {
                         var index = check_selected(file, files_selected);
                         if ($(this).hasClass('selected')) {
                             $(this).removeClass('selected');
@@ -155,7 +162,7 @@ and open the template in the editor.
                 });
                 
                 var args = null;
-                if (typeof top.tinymce.activeEditor.windowManager != "undefined" && top.tinymce.activeEditor.windowManager != null) {
+                if (typeof top.tinymce != "undefined" && top.tinymce.activeEditor != null) {
                     args = top.tinymce.activeEditor.windowManager.getParams();
                 }
                 $('.btn-editor-submit-files').click(function (e) {
@@ -167,18 +174,24 @@ and open the template in the editor.
                             var img_content = '<p><img src="'+file.url+'" alt="image" style="max-width: 100%;"></p>';
                             editor.insertContent(img_content);
                         }
+                        top.tinymce.activeEditor.windowManager.close();
+                    } else {
+                        window.parent.submitSelectFiles(files_selected, el_preview);
+                        window.parent.closeFileModal();
                     }
-                    top.tinymce.activeEditor.windowManager.close();
                 });
 
                 $('.btn-close-dialog').click(function (e) {
                     e.preventDefault();
                     if (args) {
                         top.tinymce.activeEditor.windowManager.close();
+                    } else {
+                        window.parent.closeFileModal();
                     }
                 });
                 
             })(jQuery);
+            
             function check_selected(file, files) {
                 for (var i in files) {
                     if (files[i].id === file.id) {
@@ -188,9 +201,6 @@ and open the template in the editor.
                 return -1;
             }
         </script>
-        
-        <script src="/js/tether.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
 
     </body>
 </html>

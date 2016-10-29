@@ -19,6 +19,9 @@
                 {!! Form::file('files[]', ['class' => 'file-input-field', 'multiple']) !!}
             </button>
             {!! error_field('file') !!}
+            <div id="selected_files">
+                
+            </div>
         </div>
         
         <a href="{{route('file.index')}}" class="btn btn-warning"><i class="fa fa-long-arrow-left"></i> {{trans('manage.back')}}</a>
@@ -31,8 +34,3 @@
 
 @stop
 
-@section('foot')
-
-@include('files.manager')
-
-@stop

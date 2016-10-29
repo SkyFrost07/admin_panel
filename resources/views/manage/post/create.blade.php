@@ -91,7 +91,7 @@
             <label>{{trans('manage.thumbnail')}}</label>
             <div class="thumb_group">
             </div>
-            <div><button type="button" class="btn btn-default btn-files-modal" data-multiple="0" data-type="image" data-preview=".thumb_group">{{trans('manage.add_image')}}</button></div>
+            <div><button type="button" class="btn btn-default btn-files-modal" data-href="{{route('file.dialog')}}">{{trans('manage.add_image')}}</button></div>
         </div>
 
         <div class="form-group">
@@ -152,12 +152,6 @@
 @section('foot')
 
 <script src="/plugins/tinymce/tinymce.min.js"></script>
-
-<script>
-    var files_url = '<?php echo route('file.index') ?>';
-    var filemanager_title = '<?php echo trans('manage.man_files') ?>';
-</script>
-
 <script src="/admin_src/js/tinymce_script.js"></script>
 
 @include('files.manager')

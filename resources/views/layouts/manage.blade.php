@@ -88,6 +88,7 @@ and open the template in the editor.
         <script>
             var loading = $('.loading');
             var file_dialog_url = "{{route('file.dialog', ['multiple' => 1])}}";
+            filemanager_title = '<?php echo trans('file.modal_title'); ?>';
         </script>
         <script src="/js/tether.min.js"></script>
         <script src="/admin_src/js/select2.min.js"></script>
