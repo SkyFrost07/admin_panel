@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/public/plugins/tinymce/plugins/ex_loadfile/plugin.min.js</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/app/Http/Controllers/Admin/FileController.php</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/resources/views/files/dialog.blade.php</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/public/js/filemanager.js</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/app/Http/routes.php</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/resources/views/layouts/manage.blade.php</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/resources/views/files/manager.blade.php</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/public/admin_src/js/tinymce_script.js</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/public/admin_src/less/build/main.less</file>
-            <file>file:/E:/wamp/www/lar_pj/admin_panel/public/less/build/filemanager.less</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

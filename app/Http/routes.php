@@ -150,3 +150,20 @@ function rsNames($name) {
         ]
     ];
 }
+
+Route::get('/timer', function () {
+    $start_time = null;
+    if (Session::has('start-time')) {
+        $time = Session::get('start-time');
+        if ($time) {
+            $start_time = $time;
+        }
+    }
+    return view('timer.index', compact('start_time')); 
+});
+Route::get('/set-start-time', function () {
+    if (!Session::has('num-time') && Session::get('num-time') < 1) {
+        Session::set('start-time', time()); 
+        Session::set('num-time', 1);
+    }
+});

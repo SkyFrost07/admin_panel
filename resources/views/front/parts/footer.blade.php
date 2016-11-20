@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 ftleft_col">
-            <h3 class="box-title">{{Option::get('i_name')}}</h3>
+            <h3 class="box-title">Name</h3>
             <ul class="list-unstyled">
                 <li><i class="fa fa-map-marker"></i> <span>{{trans('front.address')}}</span>: {{Option::get('i_address')}}</li>
                 <li><i class="fa fa-phone"></i> <span>{{trans('front.phone')}}</span>: <a class="txt-strong" href="tel:{{Option::get('i_phone')}}">{{Option::get('i_phone')}}</a></li>
@@ -11,9 +11,6 @@
         </div>
         <div class="col-sm-6 ftright_col text-right">
             <div class="socials">
-                <a target="_blank" href="{{Option::get('link_facebook')}}"><img src="/public/images/icon/facebook-icon.png"></a>
-                <a target="_blank" href="{{Option::get('link_google_plus')}}"><img src="/public/images/icon/google-plus-icon.png"></a>
-                <a target="_blank" href="{{Option::get('link_youtube')}}"><img src="/public/images/icon/YouTube-icon.png"></a>
             </div>
             <div class="copyright">
                 <p>Copyright <i class="fa fa-copyright"></i> 2016 nharapminhdung.com. All right reserved</p>

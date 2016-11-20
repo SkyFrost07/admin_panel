@@ -11,5 +11,6 @@ and open the template in the editor.
     </head>
     <body>
         <h1 style="text-align: center">Error 404 - page not found</h1>
+        <a href="{{URL('/')}}">Go home</a>
     </body>
 </html>
