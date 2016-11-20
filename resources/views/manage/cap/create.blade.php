@@ -14,15 +14,15 @@
         {!! Form::open(['method' => 'post', 'route' => 'cap.store']) !!}
         
         <div class="form-group">
-            <label>{{trans('manage.description')}}</label>
-            {!! Form::text('label', old('label'), ['class' => 'form-control', 'placeholder' => trans('manage.description')]) !!}
-            {!! error_field('label') !!}
-        </div>
-        
-        <div class="form-group">
             <label>{{trans('manage.name')}} (*)</label>
             {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => trans('manage.name')]) !!}
             {!! error_field('name') !!}
+        </div>
+        
+        <div class="form-group">
+            <label>{{trans('manage.description')}}</label>
+            {!! Form::text('label', old('label'), ['class' => 'form-control', 'placeholder' => trans('manage.description')]) !!}
+            {!! error_field('label') !!}
         </div>
         
         <div class="form-group">

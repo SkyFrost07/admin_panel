@@ -32,7 +32,21 @@ class User extends Authenticatable
     }
     
     public function caps(){
-        return $this->role->caps;
+        if ($this->role) {
+            return $this->role->caps;
+        }
+        return null;
+    }
+    
+    public function hasCaps($caps) {
+        if (!is_array($caps)) {
+            $caps = [$caps];
+        }
+        if ($this->role && $this->role->caps) {
+            $user_caps = $this->role->caps()->whereIn('name', $caps)->get();
+            return !$user_caps->isEmpty();
+        }
+        return false;
     }
     
     public function avatar() {
@@ -65,4 +79,5 @@ class User extends Authenticatable
                 return trans('amange.disable');
         }
     }
+
 }

@@ -16,8 +16,7 @@
     <table class="table table-hover table-striped">
         <thead>
             <tr>
-                <th width="30"><input type="checkbox" name="massdel" class="checkall"/></th>
-                <th>ID {!! link_order('id') !!}</th>
+                <th width="30"><input type="checkbox" name="massdel" class="check_all"/></th>
                 <th>{{trans('manage.name')}} {!! link_order('name') !!}</th>
                 <th>{{trans('manage.description')}}</th>
                 <th>{{trans('manage.higher')}}</th>
@@ -27,13 +26,12 @@
         <tbody>
             @foreach($items as $item)
             <tr>
-                <td><input type="checkbox" name="checked[]" class="checkitem" value="{{ $item->id }}" /></td>
-                <td>{{ $item->id }}</td>
+                <td><input type="checkbox" name="checked[]" class="check_item" value="{{ $item->name }}" /></td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->label }}</td>
                 <td>{{ $item->higher }}</td>
                 <td>
-                    <a href="{{route('cap.edit', ['id' => $item->id])}}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="{{trans('manage.edit')}}"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('cap.edit', ['id' => $item->name])}}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="{{trans('manage.edit')}}"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>
             @endforeach

@@ -18,27 +18,21 @@ class Access {
         }
         $user = auth()->user();
         $user_id = $user->id;
-        $user_caps = $user->caps()->lists('name')->toArray();
-        if(!$user_caps){
-            return false;
-        }
+
         $args = array_slice(func_get_args(), 1);
         $author = ($args) ? $args[0] : null;
         
-        if (in_array($cap, $user_caps)) {
+        if ($user->hasCaps($cap)) {
             if ($author && $user_id == $author) { 
                 return true;
-            } else if ($author && $user_id != $author) {
+            }
+            if ($author && $user_id != $author) {
                 $capitem = $this->cap->findByName($cap, ['higher']);
                 if ($capitem) {
-                    $higher = $capitem->higher;
-                    if (in_array($higher, $user_caps)){
-                        return true;
-                    }
+                    return $user->hasCaps($capitem->higher);
                 }
-            }else {
-                return true;
             }
+            return true;
         }
         return false;
     }

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('role_id')->unsigned()->nullable();
             $table->tinyInteger('gender');
-            $table->timestamp('birth');
+            $table->timestamp('birth')->nullable();
             $table->integer('image_id')->unsigned()->nullable();
             $table->tinyInteger('status')->default(1);
             $table->string('resetPasswdToken');
@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
-            $table->foreign('image_id')->references('id')->on('files')->onDelete('set null');
         });
     }
 

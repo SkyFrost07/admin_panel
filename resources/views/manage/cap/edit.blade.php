@@ -12,18 +12,18 @@
         {!! show_messes() !!}
         
         @if($item)
-        {!! Form::open(['method' => 'put', 'route' => ['cap.update', $item->id]]) !!}
-        
-        <div class="form-group">
-            <label>{{trans('manage.description')}}</label>
-            {!! Form::text('label', $item->label, ['class' => 'form-control', 'placeholder' => trans('manage.description')]) !!}
-            {!! error_field('label') !!}
-        </div>
+        {!! Form::open(['method' => 'put', 'route' => ['cap.update', $item->name]]) !!}
         
         <div class="form-group">
             <label>{{trans('manage.name')}} (*)</label>
             {!! Form::text('name', $item->name, ['class' => 'form-control', 'placeholder' => trans('manage.name')]) !!}
             {!! error_field('name') !!}
+        </div>
+        
+        <div class="form-group">
+            <label>{{trans('manage.description')}}</label>
+            {!! Form::text('label', $item->label, ['class' => 'form-control', 'placeholder' => trans('manage.description')]) !!}
+            {!! error_field('label') !!}
         </div>
         
         <div class="form-group">

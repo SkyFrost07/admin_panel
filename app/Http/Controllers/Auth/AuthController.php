@@ -28,7 +28,7 @@ class AuthController extends Controller {
         $valid = Validator::make($request->all(), [
                     'name' => 'required|min:3',
                     'email' => 'required|email|unique:users,email',
-                    'password' => 'required|min:6|confirmed'
+                    'password' => 'required|min:5|confirmed'
         ]);
         if ($valid->fails()) {
             return redirect()->back()->withInput()->withErrors($valid->errors());
@@ -57,7 +57,7 @@ class AuthController extends Controller {
     public function postLogin(Request $request) {
         $valid = Validator::make($request->all(), [
                     'email' => 'required|email',
-                    'password' => 'required|min:6'
+                    'password' => 'required|min:5'
         ]);
         if ($valid->fails()) {
             return redirect()->back()->withInput()->withErrors($valid->errors());

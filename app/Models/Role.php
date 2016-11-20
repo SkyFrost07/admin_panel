@@ -11,7 +11,7 @@ class Role extends Model {
     public $timestamps = false;
 
     public function caps() {
-        return $this->belongsToMany('\App\Models\Cap', 'role_cap', 'role_id', 'cap_id');
+        return $this->belongsToMany('\App\Models\Cap', 'role_cap', 'role_id', 'cap_name');
     }
 
     public function str_default() {

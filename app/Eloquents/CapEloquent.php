@@ -13,10 +13,9 @@ class CapEloquent extends BaseEloquent{
         $this->model = $model;
     }
     
-    public function rules($id=null){
-        $id = ($id) ? ','.$id : '';
+    public function rules(){
         return [
-            'name' => 'required|alpha_dash|unique:caps,name'.$id
+            'name' => 'required|alpha_dash'
         ];
     }
     
@@ -34,7 +33,7 @@ class CapEloquent extends BaseEloquent{
         $opts = array_merge($opts, $args);
         
         $result = $this->model
-                ->whereNotIn('id', $opts['exclude'])
+                ->whereNotIn('name', $opts['exclude'])
                 ->search($opts['key'])
                 ->orderby($opts['orderby'], $opts['order'])
                 ->select($opts['fields']);
@@ -45,6 +44,17 @@ class CapEloquent extends BaseEloquent{
             $result = $result->paginate($opts['per_page']);
         }
         return $result;
+    }
+    
+    public function update($id, $data) {
+        $this->validator($data, $this->rules());
+        
+        $fillable = $this->model->getFillable();
+        $data = array_only($data, $fillable);
+        if (!isset($data['higher']) || !$data['higher']) {
+            $data['higher'] = null;
+        }
+        return $this->model->where('name', $id)->update($data);
     }
     
     function findByName($name, $fields=['*']){

@@ -19,22 +19,19 @@ class CreateRolesTbl extends Migration {
         });
         
         Schema::create('caps', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name', 32);
             $table->string('label');
             $table->string('higher')->nullable();
-        });
-        
-        Schema::table('caps', function($table){
-           $table->foreign('higher')->references('name')->on('caps')->onDelete('set null'); 
+            $table->primary('name');
+            $table->foreign('higher')->references('name')->on('caps')->onDelete('set null')->onUpdate('cascade'); 
         });
 
         Schema::create('role_cap', function(Blueprint $table) {
             $table->integer('role_id')->unsigned();
-            $table->integer('cap_id')->unsigned();
-            $table->primary(['role_id', 'cap_id']);
+            $table->string('cap_name', 32);
+            $table->primary(['role_id', 'cap_name']);
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->foreign('cap_id')->references('id')->on('caps')->onDelete('cascade');
+            $table->foreign('cap_name')->references('name')->on('caps')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

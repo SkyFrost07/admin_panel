@@ -27,7 +27,6 @@ class CreatePostsTbl extends Migration
             $table->timestamps();
             $table->timestamp('trashed_at');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('set null');
         });
         
         Schema::create('post_desc', function(Blueprint $table){

@@ -36,7 +36,7 @@ class HomeController extends Controller {
 
         $main_slider = Option::get('main_slider');
         $slides = $this->slide->all([
-            'fields' => ['thumb_url', 'target', 'id'],
+            'fields' => ['thumb_id', 'target', 'id'],
             'per_page' => -1,
             'slider_id' => $main_slider ? $main_slider : 73
         ]);

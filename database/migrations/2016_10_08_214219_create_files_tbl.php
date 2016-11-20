@@ -23,6 +23,22 @@ class CreateFilesTbl extends Migration
             $table->timestamps();
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
         });
+        
+        Schema::table('users', function ($table) {
+            $table->foreign('image_id')->references('id')->on('files')->onDelete('set null');
+        });
+        
+        Schema::table('taxs', function ($table) {
+           $table->foreign('image_id')->references('id')->on('files')->onDelete('set null'); 
+        });
+        
+        Schema::table('posts', function ($table) {
+            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('set null'); 
+        });
+        
+        Schema::table('medias', function ($table) {
+            $table->foreign('thumb_id')->references('id')->on('files')->onDelete('cascade'); 
+        });
     }
 
     /**
@@ -32,6 +48,18 @@ class CreateFilesTbl extends Migration
      */
     public function down()
     {
+        Schema::table('users', function ($table) {
+            $table->dropForeign('users_image_id_foreign');
+        });
+        Schema::table('taxs', function ($table) {
+           $table->dropForeign('taxs_image_id_foreign');
+        });
+        Schema::table('posts', function ($table) {
+           $table->dropForeign('posts_thumb_id_foreign');
+        });
+        Schema::table('medias', function ($table) {
+           $table->dropForeign('medias_thumb_id_foreign');
+        });
         Schema::dropIfExists('files');
     }
 }

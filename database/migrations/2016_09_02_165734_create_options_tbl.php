@@ -17,7 +17,6 @@ class CreateOptionsTbl extends Migration
             $table->string('lang_code', 2)->nullable()->default(null);
             $table->string('label');
             $table->text('value');
-            $table->foreign('lang_code')->references('code')->on('langs')->onDelete('cascade');
             $table->primary(['option_key', 'lang_code']);
         });
     }

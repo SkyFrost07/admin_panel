@@ -39,10 +39,11 @@
                     </div>
                 </div>
                 <div class="role-box">
-                    @if($caps)
+                    @if(!$caps->isEmpty())
                     <ul class="list-unstyled row">
+                        <?php $user_caps = $item->caps->lists('name')->toArray(); ?>
                         @foreach($caps as $cap)
-                        <li class="col-sm-4"><label><input type="checkbox" class="item-role"  name="caps[]" value="{{ $cap->id }}" <?php selected($cap->id, $item->caps) ?>> {{ $cap->name }}</label></li>
+                        <li class="col-sm-4"><label><input type="checkbox" class="item-role"  name="caps[]" value="{{ $cap->name }}" <?php echo in_array($cap->name, $user_caps) ? 'checked' : ''; ?>> {{ $cap->name }}</label></li>
                         @endforeach
                     </ul>
                     @endif
